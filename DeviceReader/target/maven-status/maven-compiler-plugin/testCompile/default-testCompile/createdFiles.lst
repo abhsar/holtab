@@ -1,1 +1,2 @@
-ModulabRs485.class
+communication/ModulabCommunication.class
+stepDefinitions/ModulabRs485StepDef.class
