@@ -1,14 +1,17 @@
 package se.holtab.communication;
 
 import com.fazecast.jSerialComm.SerialPort;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.nio.charset.StandardCharsets;
 
 /**
  * A manager for Modulab RS485 communication using jSerialComm.
  */
-@Slf4j
 public class ModulabCommunication {
+
+    // Manually declare the logger to resolve compilation issues
+    private static final Logger log = LoggerFactory.getLogger(ModulabCommunication.class);
 
     private final String portName; // e.g., "COM3" or "/dev/ttyUSB0"
     private final int baudRate;

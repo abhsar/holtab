@@ -3,12 +3,14 @@ package stepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.holtab.communication.ModulabCommunication;
 import org.junit.Assert;
 
-@Slf4j
 public class ModulabRs485StepDef {
+
+    private static final Logger log = LoggerFactory.getLogger(ModulabRs485StepDef.class);
 
     private String targetPort;
     private ModulabCommunication deviceCommunication;
