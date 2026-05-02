@@ -30,6 +30,13 @@
             <version>2.10.4</version>
         </dependency>
 
+        <!-- j2mod for Modbus Protocol over Serial/TCP -->
+        <dependency>
+            <groupId>com.ghgande</groupId>
+            <artifactId>j2mod</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
         <!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>

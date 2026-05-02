@@ -5,33 +5,37 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.holtab.communication.ModulabCommunication;
+import se.holtab.communication.ModbusCommunication;
 import org.junit.Assert;
 
-public class ModulabRs485StepDef {
+public class ModbusRs485StepDef {
 
-    private static final Logger log = LoggerFactory.getLogger(ModulabRs485StepDef.class);
+    private static final Logger log = LoggerFactory.getLogger(ModbusRs485StepDef.class);
 
     private String targetPort;
-    private ModulabCommunication deviceCommunication;
+    private int targetUnitId;
+    private ModbusCommunication deviceCommunication;
 
     // Use {word} or .* or generic matchers to avoid Cucumber interpreting the port as double/int mix
     @Given("a device is available at IP address {}") // Keeping the sentence same as feature file
     public void aDeviceIsAvailableAtIPAddress(String portOrIp) {
-        // In the context of RS485, this is typically a COM port (e.g., COM3) or TTY (e.g., /dev/ttyUSB0)
-        // rather than an IP address. We will map the feature file parameter to a port string.
-        this.targetPort = portOrIp;
+        // For Mac OS, ports are usually prefixed with /dev/
+        // If the feature file just passes "cu.usbserial-1410", we ensure it has the /dev/ prefix
+        this.targetPort = portOrIp.startsWith("/dev/") ? portOrIp : "/dev/" + portOrIp;
         
-        // Initialize the communication class with 9600 baud rate (common for RS485)
-        this.deviceCommunication = new ModulabCommunication(this.targetPort, 9600);
-        log.info("Device targeted at port: {}", targetPort);
+        // Define a default Modbus Slave Unit ID for the tests (e.g., 1)
+        this.targetUnitId = 1;
+        
+        // Initialize the communication class with 9600 baud rate and the Unit ID
+        this.deviceCommunication = new ModbusCommunication(this.targetPort, 9600, this.targetUnitId);
+        log.info("Device targeted at port: {} with Modbus Unit ID: {}", targetPort, targetUnitId);
     }
 
     @Given("I have valid connection credentials")
     public void iHaveValidConnectionCredentials() {
-        // RS485 typically doesn't use username/password, but rather configuration 
+        // Modbus RTU doesn't use username/password, but rather configuration 
         // parameters like baud rate, parity, stop bits (which are set in connect()).
-        log.info("RS485 connection parameters configured.");
+        log.info("Modbus RTU connection parameters configured.");
     }
 
     @When("I attempt to connect to the device")
