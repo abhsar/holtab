@@ -1,6 +1,6 @@
 Feature: Modbus RS485 Device Communication
   As a system integrator
-  I want to communicate with a Modulab device using Modbus RTU over RS485
+  I want to communicate with a Modbus device using Modbus RTU over RS485
   So that I can read sensor data and write configuration values
 
   Background:
